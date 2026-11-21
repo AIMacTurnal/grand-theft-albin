@@ -85,6 +85,7 @@
   .label{display:flex; align-items:baseline; gap:10px; margin:14px 4px 0; flex-wrap:wrap}
   .label .num{font-family:Anton, Impact, sans-serif; font-size:16px; background:var(--pink); color:#fff; padding:2px 8px; border:2px solid #000}
   .label h2{font-size:clamp(30px,8.5vw,44px); line-height:1}
+  .label h2 .aside{font-family:Oswald, system-ui, sans-serif; font-weight:700; font-size:.5em; text-transform:none; -webkit-text-stroke:0; text-shadow:2px 2px 0 #000; color:var(--gold); white-space:nowrap}
   .label p{width:100%; font-size:17px; color:#ddd; font-weight:500}
 
   .end{text-align:center; padding:20px 0 40px}
@@ -134,6 +135,14 @@
   @keyframes lines{to{transform:translateX(-120px)}}
   .flag{animation:flag 1s ease-in-out infinite; transform-box:fill-box; transform-origin:left center}
   @keyframes flag{50%{transform:skewY(6deg) scaleX(.94)}}
+  .swing{animation:swing 3s ease-in-out infinite; transform-origin:300px 82px; transform-box:view-box}
+  @keyframes swing{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+  .flicker{animation:flicker .15s infinite alternate; transform-box:fill-box; transform-origin:center bottom}
+  @keyframes flicker{to{transform:scaleY(1.25)}}
+  .bubble{animation:bubble 1.4s ease-in infinite; transform-box:fill-box}
+  @keyframes bubble{from{transform:translateY(0); opacity:1}to{transform:translateY(-36px); opacity:0}}
+  .tracer{stroke-dasharray:34 70; animation:tracer .3s linear infinite}
+  @keyframes tracer{to{stroke-dashoffset:-104}}
   @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
 </style>
 </head>
@@ -233,7 +242,7 @@
 </button>
 <div id="nowplaying"><b>📻 Radio Malmö FM</b>Now playing: “Torso Twist”</div>
 <audio id="bgm" loop preload="auto" playsinline>
-  <source src="music/theme.mp3" type="audio/mpeg">
+  <source src="music/theme.m4a" type="audio/mp4">
   <source src="music/radio.m4a" type="audio/mp4">
 </audio>
 <div id="toast"><div class="gta t1">Mission Passed!</div><div class="gta t2" id="toast2">Respect +</div></div>
@@ -320,7 +329,7 @@
       </svg>
     </div>
     <div class="label"><span class="num">Mission 1</span><h2 class="gta">Ladies' Man</h2>
-      <p>Hawaiian shirt. Cigar. Sunglasses at golden hour. The city never stood a chance.</p></div>
+      <p>Hawaiiskjorta. Cigarr. Solglasögon i solnedgången. The city never stood a chance.</p></div>
   </section>
 
   <!-- ============ 2. PHARMACY HEIST ============ -->
@@ -393,87 +402,140 @@
       </svg>
     </div>
     <div class="label"><span class="num">Mission 2</span><h2 class="gta">Apotek Heist</h2>
-      <p>Receptbelagt? Not tonight. In and out in the mustard suit before the sirens hit the block.</p></div>
+      <p>Receptbelagt? Inte i natt. In och ut i den senapsgula kostymen innan sirenerna når kvarteret.</p></div>
   </section>
 
-  <!-- ============ 3. HELICOPTER OVER TURNING TORSO ============ -->
+  <!-- ============ 3. CELLAR LAB ============ -->
   <section class="panel" data-stars="4" data-cash="90000" data-msg="+$90 000">
     <div class="frame">
-      <svg viewBox="0 0 600 800" role="img" aria-label="Albin in a helicopter over the Turning Torso in Malmö">
+      <svg viewBox="0 0 600 800" role="img" aria-label="Albin in a makeshift lab in his apartment building's cellar">
         <defs>
-          <linearGradient id="s3sky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#160f3d"/><stop offset=".4" stop-color="#5a2a74"/><stop offset=".72" stop-color="#ff7a59"/><stop offset=".78" stop-color="#ffb46b"/>
-          </linearGradient>
-          <linearGradient id="s3sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#40407a"/><stop offset="1" stop-color="#1a1a40"/></linearGradient>
-          <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff7c2" stop-opacity=".6"/><stop offset="1" stop-color="#fff7c2" stop-opacity="0"/></linearGradient>
-          <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#bff0ff"/><stop offset="1" stop-color="#3a8fc0"/></linearGradient>
-          <clipPath id="door"><rect x="222" y="138" width="130" height="118" rx="12"/></clipPath>
+          <pattern id="blocks" width="80" height="40" patternUnits="userSpaceOnUse"><rect width="80" height="40" fill="#6d6a72"/><path d="M0 0H80M0 20H80M40 0V20M0 20V40M80 20V40" stroke="#4a4750" stroke-width="3"/></pattern>
+          <pattern id="mesh" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M0 0L14 14M14 0L0 14" stroke="#9aa0a8" stroke-width="1.5"/></pattern>
+          <radialGradient id="bulb"><stop offset="0" stop-color="#fff3b0" stop-opacity=".9"/><stop offset=".35" stop-color="#ffcf5a" stop-opacity=".35"/><stop offset="1" stop-color="#ffcf5a" stop-opacity="0"/></radialGradient>
+          <radialGradient id="toxic"><stop offset="0" stop-color="#7dff6a" stop-opacity=".55"/><stop offset="1" stop-color="#7dff6a" stop-opacity="0"/></radialGradient>
+          <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a0683a"/><stop offset="1" stop-color="#5e3a1e"/></linearGradient>
         </defs>
-        <rect width="600" height="800" fill="url(#s3sky)"/>
-        <g fill="#fff" opacity=".7"><circle cx="40" cy="40" r="1.5"/><circle cx="520" cy="70" r="1.5"/><circle cx="470" cy="20" r="1"/><circle cx="90" cy="300" r="1"/></g>
-        <circle cx="120" cy="590" r="48" fill="#ffe08a" opacity=".9"/>
-        <!-- sea + Öresund bridge -->
-        <rect y="600" width="600" height="200" fill="url(#s3sea)"/>
-        <g stroke="#2a1d4a" fill="none">
-          <path d="M-10 596 L 330 590" stroke-width="3"/>
-          <path d="M92 596 V 552 M100 596 V 552 M198 592 V 550 M206 592 V 550" stroke-width="3"/>
-          <path d="M96 556 L 30 594 M96 556 L 60 595 M96 556 L 150 593 M96 556 L 128 594 M202 554 L 150 593 M202 554 L 175 592 M202 554 L 250 591 M202 554 L 230 592" stroke-width="1"/>
+        <rect width="600" height="800" fill="url(#blocks)"/>
+        <rect width="600" height="800" fill="#120a1a" opacity=".38"/>
+        <ellipse cx="470" cy="210" rx="70" ry="100" fill="#3d4a3a" opacity=".35"/>
+        <!-- floor -->
+        <rect y="650" width="600" height="150" fill="#3a3640"/>
+        <path d="M0 650 H600" stroke="#1a161e" stroke-width="5"/>
+        <!-- pipes -->
+        <g stroke="#000" stroke-width="3">
+          <rect x="-10" y="28" width="620" height="26" rx="12" fill="#8d8f96"/>
+          <rect x="-10" y="66" width="620" height="16" rx="8" fill="#b55a2a"/>
+          <rect x="540" y="54" width="20" height="600" fill="#8d8f96"/>
+          <rect x="120" y="20" width="12" height="42" fill="#555"/><rect x="420" y="20" width="12" height="42" fill="#555"/>
         </g>
-        <!-- searchlight -->
-        <path d="M300 270 L 200 800 L 420 800Z" fill="url(#beam)"/>
-        <!-- Turning Torso (generated) -->
-        <g id="torso"></g>
-        <!-- city -->
-        <path id="city" fill="#130a2a" d=""/>
-        <!-- helicopter -->
-        <g class="hover">
-          <g class="rotor">
-            <ellipse cx="290" cy="98" rx="270" ry="9" fill="#0b0614" opacity=".55"/>
-            <rect x="20" y="95" width="540" height="6" fill="#0b0614"/>
-          </g>
-          <rect x="285" y="98" width="10" height="24" fill="#222" stroke="#000" stroke-width="3"/>
-          <!-- tail -->
-          <path d="M175 186 L -10 196 L -10 214 L 172 236Z" fill="#2b2f3a" stroke="#000" stroke-width="4"/>
-          <path d="M20 196 L 6 150 L 34 150 L 48 196Z" fill="#ff7a1a" stroke="#000" stroke-width="4"/>
-          <g class="tailrotor"><ellipse cx="12" cy="190" rx="34" ry="6" fill="#0b0614" opacity=".6"/><ellipse cx="12" cy="190" rx="6" ry="34" fill="#0b0614" opacity=".6"/></g>
-          <!-- cabin -->
-          <path d="M168 172 Q 198 118 300 116 L 360 118 Q 438 128 452 198 Q 456 252 402 270 L 200 270 Q 162 264 158 226Z" fill="#2b2f3a" stroke="#000" stroke-width="5"/>
-          <path d="M162 232 L 452 226" stroke="#ff7a1a" stroke-width="10"/>
-          <path d="M366 126 Q 432 140 446 204 L 378 204 Q 372 160 366 126Z" fill="url(#glass)" stroke="#000" stroke-width="4"/>
-          <!-- open door with Albin -->
-          <rect x="222" y="138" width="130" height="118" rx="12" fill="#0d0d12" stroke="#000" stroke-width="5"/>
-          <g clip-path="url(#door)">
-            <image href="img/pilot.png" x="218" y="140" width="160" height="163.1" filter="url(#ink)"/>
-          </g>
-          <rect x="222" y="138" width="130" height="118" rx="12" fill="none" stroke="#000" stroke-width="6"/>
-          <!-- skids -->
-          <g stroke="#111" stroke-width="7" stroke-linecap="round" fill="none">
-            <path d="M232 268 L 222 302 M392 268 L 402 302"/><path d="M180 304 L 440 304 Q 456 304 462 292"/>
-          </g>
-          <!-- rifle -->
-          <g transform="translate(236 252) rotate(-9)" stroke="#000" stroke-width="3" stroke-linejoin="round">
-            <path d="M0 -6 L 52 -14 L 72 -12 L 72 8 L 50 6 L 0 18Z" fill="#8a4b22"/>
-            <rect x="70" y="-14" width="104" height="18" fill="#3a3d44"/>
-            <path d="M124 4 L 142 4 L 134 32 L 118 30Z" fill="#8a4b22"/>
-            <path d="M150 4 Q 160 32 176 48 L 194 40 Q 178 24 172 4Z" fill="#26282d"/>
-            <rect x="172" y="-12" width="60" height="15" fill="#8a4b22"/>
-            <rect x="172" y="-19" width="82" height="7" fill="#3a3d44"/>
-            <rect x="230" y="-9" width="74" height="6" fill="#26282d"/>
-            <rect x="286" y="-20" width="6" height="12" fill="#26282d"/>
-            <!-- hands -->
-            <ellipse cx="130" cy="10" rx="13" ry="10" fill="#f2b896"/>
-            <ellipse cx="205" cy="2" rx="14" ry="10" fill="#f2b896"/>
-            <g class="flash" stroke="none">
-              <path d="M306 -6 L 330 -26 L 324 -8 L 352 -6 L 324 0 L 334 18Z" fill="#ffe14a"/>
-              <circle cx="314" cy="-6" r="8" fill="#fff"/>
-            </g>
+        <!-- storage cage: Förråd 14 -->
+        <rect x="0" y="120" width="150" height="530" fill="#1e1a22"/>
+        <circle cx="70" cy="580" r="42" fill="none" stroke="#666" stroke-width="5"/><circle cx="70" cy="580" r="6" fill="#666"/>
+        <rect x="20" y="430" width="70" height="60" fill="#8a6a42" stroke="#000" stroke-width="3"/>
+        <rect x="0" y="120" width="150" height="530" fill="url(#mesh)"/>
+        <g fill="url(#wood)" stroke="#000" stroke-width="3"><rect x="0" y="116" width="150" height="12"/><rect x="0" y="120" width="10" height="530"/><rect x="140" y="120" width="10" height="530"/><rect x="70" y="120" width="8" height="530"/></g>
+        <rect x="18" y="150" width="114" height="36" fill="#f4f1e6" stroke="#000" stroke-width="3"/>
+        <text x="75" y="176" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="22" fill="#000">FÖRRÅD 14</text>
+        <!-- laundry booking list -->
+        <g transform="rotate(4 500 220)">
+          <rect x="440" y="140" width="120" height="150" fill="#fffdf2" stroke="#000" stroke-width="3"/>
+          <text x="500" y="162" text-anchor="middle" font-family="Oswald, Arial, sans-serif" font-weight="700" font-size="15" fill="#000">TVÄTTSTUGA</text>
+          <g stroke="#9aa" stroke-width="1.5"><path d="M448 172 H552 M448 192 H552 M448 212 H552 M448 232 H552 M448 252 H552 M448 272 H552 M480 172 V282"/></g>
+          <text x="516" y="208" text-anchor="middle" font-family="Kaushan Script, cursive" font-size="13" fill="#c00" transform="rotate(-8 516 230)">Albin – hela</text>
+          <text x="516" y="232" text-anchor="middle" font-family="Kaushan Script, cursive" font-size="13" fill="#c00" transform="rotate(-8 516 230)">veckan!!</text>
+          <circle cx="500" cy="146" r="4" fill="#d22"/>
+        </g>
+        <!-- gas mask on a nail -->
+        <g stroke="#000" stroke-width="3" transform="translate(190 130)">
+          <path d="M20 0 L 20 14" stroke-width="2"/>
+          <path d="M0 30 Q 20 10 40 30 Q 46 60 20 70 Q -6 60 0 30Z" fill="#2c2f2a"/>
+          <circle cx="11" cy="36" r="8" fill="#9fd8e8"/><circle cx="29" cy="36" r="8" fill="#9fd8e8"/>
+          <rect x="12" y="62" width="16" height="20" rx="4" fill="#556b2f"/>
+        </g>
+        <!-- swinging bulb -->
+        <g class="swing">
+          <path d="M300 82 V 150" stroke="#111" stroke-width="3"/>
+          <circle cx="300" cy="160" r="240" fill="url(#bulb)"/>
+          <rect x="293" y="146" width="14" height="10" fill="#555"/>
+          <circle cx="300" cy="165" r="12" fill="#fff6c8" stroke="#000" stroke-width="2"/>
+        </g>
+        <!-- Albin -->
+        <image href="img/pilot.png" x="150" y="290" width="300" height="305.8" filter="url(#ink)"/>
+        <!-- toxic fumes -->
+        <ellipse cx="190" cy="360" rx="110" ry="60" fill="url(#toxic)" class="hover"/>
+        <ellipse cx="420" cy="420" rx="90" ry="50" fill="url(#toxic)" class="hover" style="animation-delay:-1.5s"/>
+        <!-- lab table -->
+        <rect x="30" y="560" width="540" height="20" fill="url(#wood)" stroke="#000" stroke-width="4"/>
+        <rect x="44" y="580" width="512" height="22" fill="#6b4425" stroke="#000" stroke-width="3"/>
+        <g fill="#5e3a1e" stroke="#000" stroke-width="3"><rect x="60" y="600" width="20" height="170"/><rect x="520" y="600" width="20" height="170"/></g>
+        <!-- under the table -->
+        <g stroke="#000" stroke-width="3">
+          <rect x="300" y="680" width="150" height="80" fill="#e0c088"/>
+          <text x="375" y="730" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="22" fill="#7a1010" stroke="none">DR. TRANBERG</text>
+          <path d="M140 690 h50 l-6 70 h-38Z" fill="#c62828"/>
+        </g>
+        <!-- burner + round flask on a stand -->
+        <g stroke="#000" stroke-width="3">
+          <path d="M96 400 V 560" stroke="#777" stroke-width="6"/>
+          <path d="M96 450 H 126" stroke="#777" stroke-width="5"/>
+          <rect x="112" y="528" width="56" height="32" rx="4" fill="#444"/>
+          <path d="M140 528 q -12 -16 0 -34 q 12 18 0 34Z" fill="#4fc3ff" class="flicker"/>
+          <circle cx="140" cy="470" r="28" fill="#d6f2ff" fill-opacity=".45"/>
+          <path d="M113 476 A 28 28 0 0 0 167 476Z" fill="#ff3e9a" stroke="none"/>
+          <circle cx="140" cy="470" r="28" fill="none"/>
+          <rect x="132" y="420" width="16" height="26" fill="#d6f2ff" fill-opacity=".5"/>
+        </g>
+        <path d="M140 420 Q 140 380 200 392 L 252 472" stroke="#cfefff" stroke-width="7" fill="none" opacity=".85"/>
+        <path d="M140 420 Q 140 380 200 392 L 252 472" stroke="#000" stroke-width="1.5" fill="none"/>
+        <!-- erlenmeyer with green glow -->
+        <g stroke="#000" stroke-width="3">
+          <path d="M248 470 V 500 L 220 560 H 298 L 270 500 V 470Z" fill="#d6f2ff" fill-opacity=".4"/>
+          <path d="M236 526 H 282 L 298 560 H 220Z" fill="#6dff7a"/>
+          <circle cx="259" cy="540" r="40" fill="url(#toxic)" stroke="none"/>
+        </g>
+        <g fill="#eaffea"><circle cx="250" cy="548" r="4" class="bubble"/><circle cx="266" cy="552" r="3" class="bubble" style="animation-delay:-.5s"/><circle cx="258" cy="544" r="3.5" class="bubble" style="animation-delay:-.9s"/></g>
+        <!-- beakers -->
+        <g stroke="#000" stroke-width="3">
+          <rect x="318" y="510" width="36" height="50" fill="#d6f2ff" fill-opacity=".4"/><rect x="318" y="530" width="36" height="30" fill="#ffd35a"/>
+          <rect x="360" y="526" width="26" height="34" fill="#d6f2ff" fill-opacity=".4"/><rect x="360" y="540" width="26" height="20" fill="#47c6ff"/>
+        </g>
+        <!-- pot on hot plate -->
+        <g stroke="#000" stroke-width="3">
+          <rect x="400" y="546" width="104" height="14" fill="#222"/><path d="M408 553 H 496" stroke="#ff3b1a" stroke-width="3"/>
+          <rect x="412" y="500" width="80" height="46" rx="4" fill="#b9bec7"/>
+          <path d="M404 510 h8 M492 510 h8" stroke-width="6"/>
+        </g>
+        <g fill="#eee" filter="url(#blur3)"><circle cx="440" cy="480" r="16" class="smoke"/><circle cx="465" cy="470" r="14" class="smoke" style="animation-delay:-.6s"/></g>
+        <!-- scale + baggies -->
+        <g stroke="#000" stroke-width="3">
+          <rect x="512" y="540" width="50" height="20" fill="#333"/><rect x="518" y="544" width="30" height="10" fill="#3cff9a" stroke-width="1.5"/>
+                    <rect x="182" y="542" width="20" height="16" fill="#fff" fill-opacity=".9" transform="rotate(10 192 550)"/>
+        </g>
+        <!-- packages under the table -->
+        <g>
+          <use href="#coke" x="0" y="0" width="40" height="24" transform="translate(200 736)"/><use href="#coke" x="0" y="0" width="40" height="24" transform="translate(242 736)"/>
+          <use href="#coke" x="0" y="0" width="40" height="24" transform="translate(221 712)"/><use href="#coke" x="0" y="0" width="40" height="24" transform="translate(212 688) rotate(-6)"/>
+          <use href="#coke" x="0" y="0" width="40" height="24" transform="translate(460 736)"/><use href="#coke" x="0" y="0" width="40" height="24" transform="translate(470 712) rotate(8)"/>
+        </g>
+        <!-- phone ringing -->
+        <g class="shake">
+          <g transform="rotate(-10 62 530)" stroke="#000" stroke-width="3">
+            <rect x="40" y="494" width="44" height="74" rx="8" fill="#111"/>
+            <rect x="45" y="502" width="34" height="56" rx="3" fill="#2a6df4" stroke-width="1"/>
+            <circle cx="62" cy="518" r="7" fill="#fff" stroke-width="1"/>
+            <circle cx="53" cy="548" r="4" fill="#ff3b30" stroke-width="1"/><circle cx="71" cy="548" r="4" fill="#34c759" stroke-width="1"/>
           </g>
         </g>
-        <text x="300" y="770" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="26" fill="#fff" stroke="#000" stroke-width="5" paint-order="stroke" letter-spacing="3">VÄSTRA HAMNEN · MALMÖ</text>
+        <g transform="translate(14 412)">
+          <path d="M0 8 Q 0 0 8 0 H 168 Q 176 0 176 8 V 40 Q 176 48 168 48 H 62 L 50 70 L 46 48 H 8 Q 0 48 0 40Z" fill="#fff" stroke="#000" stroke-width="3"/>
+          <text x="88" y="31" text-anchor="middle" font-family="Oswald, Arial, sans-serif" font-weight="700" font-size="17" fill="#000">📞 Dr Alban calling...</text>
+        </g>
+        <text x="300" y="790" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="28" fill="#fff" stroke="#000" stroke-width="6" paint-order="stroke" letter-spacing="2">KÄLLAREN · FÖRRÅD 14</text>
       </svg>
     </div>
-    <div class="label"><span class="num">Mission 3</span><h2 class="gta">Torso Run</h2>
-      <p>190 meters of twisted Malmö steel below. One beer, one rifle, zero flight hours.</p></div>
+    <div class="label"><span class="num">Mission 3</span><h2 class="gta">Cellar Lab</h2>
+      <p>Bestämde sig för att tjäna lite pengar vid sidan om för att finansiera sitt beroende av att köpa finskor.</p></div>
   </section>
 
   <!-- ============ 4. BRIDGE RUN (Öresundsbron) ============ -->
@@ -567,12 +629,22 @@
           <use href="#rim" x="-22" y="-22" width="44" height="44" transform="translate(140 630)"/>
           <use href="#rim" x="-22" y="-22" width="44" height="44" transform="translate(206 630)"/>
         </g>
-        <!-- bricks flying off + powder -->
-        <g fill="#fff" opacity=".85" filter="url(#blur3)">
-          <circle cx="96" cy="500" r="22" class="smoke"/><circle cx="70" cy="470" r="16" class="smoke" style="animation-delay:-.5s"/>
+        <!-- police opening fire -->
+        <g stroke="#000" stroke-width="3" stroke-linejoin="round">
+          <path d="M66 614 Q 70 596 88 594 L 96 618Z" fill="#1b2a4a"/>
+          <path d="M90 600 L 118 580" stroke="#1b2a4a" stroke-width="9" stroke-linecap="round"/>
+          <circle cx="82" cy="584" r="11" fill="#f2b896"/>
+          <path d="M70 578 Q 82 564 96 578 L 98 582 L 68 582Z" fill="#14213d"/>
+          <path d="M114 570 l 18 -6 l 2 6 l -10 4 l 1 8 l -6 2Z" fill="#111"/>
         </g>
-        <use href="#coke" x="0" y="0" width="40" height="24" transform="translate(70 440) rotate(-25)" class="float"/>
-        <use href="#coke" x="0" y="0" width="40" height="24" transform="translate(24 500) rotate(30)" class="float" style="animation-delay:-1.2s"/>
+        <path d="M138 568 l 14 -10 l -3 10 l 15 0 l -14 6 l 8 10 l -13 -6Z" fill="#ffe14a" stroke="#000" stroke-width="1.5" class="flash"/>
+        <path d="M150 562 L 600 330" stroke="#ffe14a" stroke-width="3" stroke-linecap="round" class="tracer"/>
+        <path d="M150 192 L 600 520" stroke="#ffe14a" stroke-width="3" stroke-linecap="round" class="tracer" style="animation-delay:-.15s"/>
+        <path d="M146 186 l 16 -2 l 2 8 l -16 2Z" fill="#111" stroke="#000" stroke-width="2"/>
+        <g class="flash" style="animation-delay:-.07s" fill="#fff6a8" stroke="#000" stroke-width="1.5">
+          <path d="M300 690 l 6 -12 l 2 12 l 12 2 l -12 4 l -2 12 l -4 -12 l -12 -2Z"/>
+          <path d="M470 548 l 6 -12 l 2 12 l 12 2 l -12 4 l -2 12 l -4 -12 l -12 -2Z"/>
+        </g>
         <!-- the car -->
         <g transform="translate(230 230) scale(.62)">
           <g transform="rotate(-6 300 620)" class="shake">
@@ -593,7 +665,7 @@
       </svg>
     </div>
     <div class="label"><span class="num">Mission 4</span><h2 class="gta">Bridge Run</h2>
-      <p>Three tons of "baking flour" on a trailer, half of Skåne's police in the mirror, Danish customs waving goodbye. Five stars well earned.</p></div>
+      <p>Tre ton ”bakmjöl” på släpet, halva Skånes poliskår i backspegeln och danska tullen som vinkar hej då. Fem stjärnor, välförtjänt.</p></div>
   </section>
 
   <!-- ============ 5. GO-KART ============ -->
@@ -655,11 +727,11 @@
         <text x="150" y="312" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="32" fill="#fff" stroke="#000" stroke-width="6" paint-order="stroke" letter-spacing="2">LAP 3/3 · P1</text>
       </svg>
     </div>
-    <div class="label"><span class="num">Final Mission</span><h2 class="gta">Kart King</h2>
-      <p>After the helicopter, the bridge and three tons of flour, the most dangerous machine of all: a go-kart at Gokartcity Malmö.</p></div>
-    <a class="gift" href="https://www.gokartcity.se/" target="_blank" rel="noopener">
+    <div class="label"><span class="num">Final Mission</span><h2 class="gta">GOKart <span class="aside">(Detta är presenten 😉)</span></h2>
+      <p>Här kan du fantisera om att fly från polisen på Öresundsbron med 20 kg egengjord kokain i bakluckan. Kör försiktigt så att du inte kraschar och blir borta för länge från jobbet – då finns det ingen som kan se till att läkarna inte fuckar upp 95-åriga Agdas medicin och ger henne 1000 gånger mer smärtstillande än hon egentligen skulle ha.</p></div>
+    <a class="gift" href="gift.html">
       <img src="img/gokartcity-logo.jpg" alt="Gokartcity Malmö">
-      <div><b class="gta">Your gift 🎁</b><span>A race at <strong>Gokartcity Malmö AB</strong>. Helmet on, Albin. Time to collect.</span></div>
+      <div><b class="gta">Din present 🎁</b><span>Ett race på <strong>Gokartcity Malmö AB</strong>. På med hjälmen, Albin – dags att lösa in.</span></div>
     </a>
   </section>
 
@@ -675,7 +747,7 @@
     <div class="credits">
       <b>Starring</b> Albin as Albin<br>
       <b>Stunts</b> Albin<br>
-      <b>Helicopter license</b> pending<br>
+      <b>Lab</b> Förråd 14, källaren<br>
       <b>Pharmacy</b> please do not press charges<br>
       <b>Danish customs</b> still looking<br>
       <b>Soundtrack</b> Radio Malmö FM (original)<br>
@@ -701,43 +773,6 @@ document.querySelectorAll('svg image').forEach(img => {
 const NS = 'http://www.w3.org/2000/svg';
 const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent && parent.appendChild(e); return e; };
 let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-
-// Turning Torso: 9 twisting cubes + steel spine
-(function torso(){
-  // Each block is a square floor plate; the tower rotates 90° from bottom to top,
-  // so every block's corners are computed at its bottom and top angle -> slanted edges = the twist.
-  const g = document.getElementById('torso'), cx = 300, top = 320, bottom = 700, n = 9, gap = 5, s = 74;
-  const h = (bottom - top - gap * (n - 1)) / n, total = 90;
-  const edges = deg => { const t = deg * Math.PI / 180, a = s * Math.cos(t), b = s * Math.sin(t), l = cx - (a + b) / 2; return [l, l + a, l + a + b]; };
-  const lerp = (p, q, f) => p + (q - p) * f;
-  for (let i = 0; i < n; i++) {
-    const d0 = total * i / n, d1 = total * (i + 1) / n - 1;
-    const yb = bottom - i * (h + gap), yt = yb - h;
-    const [lb, mb, rb] = edges(d0), [lt, mt, rt] = edges(d1);
-    el('polygon', {points:`${lb},${yb} ${mb},${yb} ${mt},${yt} ${lt},${yt}`, fill:'#efeaf7', stroke:'#1a1030', 'stroke-width':2}, g);
-    el('polygon', {points:`${mb},${yb} ${rb},${yb} ${rt},${yt} ${mt},${yt}`, fill:'#8a80ab', stroke:'#1a1030', 'stroke-width':2}, g);
-    for (let f = 1; f < 5; f++) {
-      const k = f / 5, y = lerp(yb, yt, k), L = lerp(lb, lt, k), R = lerp(rb, rt, k);
-      el('line', {x1:L + 1, x2:R - 1, y1:y, y2:y, stroke:'#4d4672', 'stroke-width':1.2}, g);
-    }
-    for (let k = 0; k < 4; k++) if (rnd() > .4) {
-      const f = Math.floor(rnd() * 5), y = lerp(yb, yt, (f + 1) / 5), L = lerp(lb, lt, f / 5), R = lerp(rb, rt, f / 5);
-      el('rect', {x:L + 3 + rnd() * (R - L - 14), y:y + 1.5, width:8, height:h / 5 - 3, fill:'#ffd35a'}, g);
-    }
-  }
-  // steel spine on the side
-  const sx = cx + s * .78;
-  el('path', {d:`M${sx} ${bottom} L ${sx - 4} ${top - 10}`, stroke:'#d9dcef', 'stroke-width':4, fill:'none'}, g);
-  for (let y = top; y < bottom - 10; y += 24) el('path', {d:`M${sx - 4} ${y} L ${sx - 16} ${y + 12} L ${sx - 4} ${y + 24}`, stroke:'#d9dcef', 'stroke-width':1.5, fill:'none'}, g);
-  el('rect', {x:cx - 2, y:top - 36, width:4, height:36, fill:'#cfd3e6'}, g);
-  el('circle', {cx, cy:top - 38, r:4, fill:'#ff2b2b', class:'siren-r'}, g);
-  // city skyline
-  let d = 'M0 800 L0 690';
-  let x = 0;
-  while (x < 600) { const bw = 20 + rnd() * 40, bh = 640 + rnd() * 60; d += ` L${x} ${bh} L${x + bw} ${bh}`; x += bw; }
-  d += ' L600 800Z';
-  document.getElementById('city').setAttribute('d', d);
-})();
 
 // Pharmacy shelves
 (function shelves(){
@@ -799,7 +834,7 @@ document.getElementById('replay').onclick = () => { window.scrollTo({top:0, beha
 
 /* ---------- Music: pre-rendered original track (music/radio.m4a) ----------
    A plain <audio> file is the most reliable thing on phones (iPhone plays it even with the
-   silent switch on). Drop your own music/theme.mp3 next to it and that plays instead. */
+   silent switch on). A music/theme.m4a next to it plays instead (kept out of git). */
 const bgm = document.getElementById('bgm');
 bgm.volume = 0.85;
 const Music = (() => {
@@ -841,7 +876,9 @@ let npTimer;
 function syncButton(){ btn.classList.toggle('muted', !Music.on); btn.setAttribute('aria-pressed', Music.on); }
 function toggleSound(){
   Music.set(!Music.on); syncButton();
-  if (Music.on) { np.classList.add('show'); clearTimeout(npTimer); npTimer = setTimeout(() => np.classList.remove('show'), 4500); }
+  if (Music.on) {
+    np.lastChild.textContent = /theme\./.test(bgm.currentSrc) ? 'Now playing: Theme from San Andreas' : 'Now playing: “Torso Twist”';
+    np.classList.add('show'); clearTimeout(npTimer); npTimer = setTimeout(() => np.classList.remove('show'), 4500); }
 }
 btn.addEventListener('click', toggleSound);
 bgm.addEventListener('pause', syncButton);
